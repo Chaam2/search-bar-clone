@@ -2,7 +2,7 @@
  * searchPage UI rendering
  */
 import React from 'react';
-import SearchBar from '../components/search/SearchBar';
+import SearchBar from './SearchBar';
 
 const SearchPage = () => {
   return (
