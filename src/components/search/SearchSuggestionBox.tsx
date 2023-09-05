@@ -32,7 +32,7 @@ const SearchSuggestionBox = ({ keyword }: ISearchSuggestionBoxProps) => {
         {searchResult.length === 0 ? (
           <span>추천 검색어가 없습니다.</span>
         ) : (
-          searchResult.map(result => {
+          searchResult.slice(0, MAX_RESULT).map(result => {
             return (
               <div key={result.sickCd}>
                 <span>{result.sickNm}</span>
@@ -54,3 +54,5 @@ interface ISearchResult {
   sickCd: string;
   sickNm: string;
 }
+
+const MAX_RESULT = 7;
