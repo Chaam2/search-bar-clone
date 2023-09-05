@@ -1,7 +1,8 @@
 import React from 'react';
+import SearchPage from './pages/SearchPage';
 
 function App() {
-  return <div>search-bar-clone</div>;
+  return <SearchPage />;
 }
 
 export default App;
