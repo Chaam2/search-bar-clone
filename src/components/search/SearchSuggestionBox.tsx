@@ -5,14 +5,14 @@
 import React, { useEffect, useState } from 'react';
 import { getSearchResult } from '../../api/search';
 
-const SearchSuggestionBox = ({ keyword }: ISearchSuggestionBoxProps) => {
+const SearchSuggestionBox = ({ keyword, debouncedKeyword }: ISearchSuggestionBoxProps) => {
   const [searchResult, setSearchResult] = useState<ISearchResult[]>([]);
   useEffect(() => {
     getSearchResultData();
-  }, [keyword]);
+  }, [debouncedKeyword]);
 
   const getSearchResultData = async () => {
-    const response = await getSearchResult(keyword);
+    const response = await getSearchResult(debouncedKeyword);
     const searchResultData = response.data;
     setSearchResult(searchResultData);
   };
@@ -49,6 +49,7 @@ export default SearchSuggestionBox;
 
 interface ISearchSuggestionBoxProps {
   keyword: string;
+  debouncedKeyword: string;
 }
 interface ISearchResult {
   sickCd: string;

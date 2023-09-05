@@ -3,10 +3,12 @@
  * state management
  */
 import React, { useState } from 'react';
+import { useDebounce } from '../../hooks/useDebounce';
 import SearchSuggestionBox from './SearchSuggestionBox';
 
 const SearchBar = () => {
   const [keyword, setKeyword] = useState('');
+  const debouncedKeyword = useDebounce(keyword);
 
   return (
     <div>
@@ -22,7 +24,7 @@ const SearchBar = () => {
         <button>X</button>
         <button>검색</button>
       </div>
-      <SearchSuggestionBox keyword={keyword} />
+      <SearchSuggestionBox keyword={keyword} debouncedKeyword={debouncedKeyword} />
     </div>
   );
 };
