@@ -9,7 +9,7 @@ import { TypeSearchResult } from '../../types/TypeSearchResult';
 const SearchSuggestionBox = ({ keyword, debouncedKeyword }: TypeSearchSuggestionBoxProps) => {
   const [searchResult, setSearchResult] = useState<TypeSearchResult[]>([]);
   useEffect(() => {
-    getSearchResultData();
+    debouncedKeyword.trim() && getSearchResultData();
   }, [debouncedKeyword]);
 
   const getSearchResultData = async () => {
