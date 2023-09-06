@@ -42,6 +42,7 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
       </SearchBarContainer>
       <SearchSuggestionBox
         keyword={keyword}
+        setKeyword={setKeyword}
         debouncedKeyword={debouncedKeyword}
         isFocused={isFocused}
       />

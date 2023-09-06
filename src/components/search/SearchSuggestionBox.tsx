@@ -10,6 +10,7 @@ import { TypeSearchResult } from '../../types/TypeSearchResult';
 
 const SearchSuggestionBox = ({
   keyword,
+  setKeyword,
   debouncedKeyword,
   isFocused,
 }: TypeSearchSuggestionBoxProps) => {
@@ -23,6 +24,11 @@ const SearchSuggestionBox = ({
     const searchResultData = await getSearchResult(debouncedKeyword);
     setSearchResult(searchResultData);
   };
+
+  const changeKeyword = (newKeyword: string) => {
+    setKeyword(newKeyword);
+  };
+
   if (!keyword) {
     return (
       <RecentContainer isFocused={isFocused}>
@@ -51,7 +57,7 @@ const SearchSuggestionBox = ({
           <SuggestionUl>
             {searchResult.slice(0, MAX_RESULT).map(result => {
               return (
-                <li key={result.sickCd}>
+                <li key={result.sickCd} onClick={() => changeKeyword(result.sickNm)}>
                   <LuSearch size={20} color={'#aaaaaa'} />
                   {result.sickNm}
                 </li>
@@ -68,6 +74,8 @@ export default SearchSuggestionBox;
 
 type TypeSearchSuggestionBoxProps = {
   keyword: string;
+  // eslint-disable-next-line
+  setKeyword: (newKeyword: string) => void;
   debouncedKeyword: string;
   isFocused: boolean;
 };
