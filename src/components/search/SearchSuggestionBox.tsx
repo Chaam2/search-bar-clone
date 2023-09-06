@@ -13,8 +13,7 @@ const SearchSuggestionBox = ({ keyword, debouncedKeyword }: TypeSearchSuggestion
   }, [debouncedKeyword]);
 
   const getSearchResultData = async () => {
-    const response = await getSearchResult(debouncedKeyword);
-    const searchResultData = response.data;
+    const searchResultData = await getSearchResult(debouncedKeyword);
     setSearchResult(searchResultData);
   };
   if (!keyword) {
