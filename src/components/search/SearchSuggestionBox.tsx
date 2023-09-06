@@ -4,9 +4,10 @@
  */
 import React, { useEffect, useState } from 'react';
 import { getSearchResult } from '../../api/search';
+import { TypeSearchResult } from '../../types/TypeSearchResult';
 
-const SearchSuggestionBox = ({ keyword, debouncedKeyword }: ISearchSuggestionBoxProps) => {
-  const [searchResult, setSearchResult] = useState<ISearchResult[]>([]);
+const SearchSuggestionBox = ({ keyword, debouncedKeyword }: TypeSearchSuggestionBoxProps) => {
+  const [searchResult, setSearchResult] = useState<TypeSearchResult[]>([]);
   useEffect(() => {
     getSearchResultData();
   }, [debouncedKeyword]);
@@ -47,13 +48,9 @@ const SearchSuggestionBox = ({ keyword, debouncedKeyword }: ISearchSuggestionBox
 
 export default SearchSuggestionBox;
 
-interface ISearchSuggestionBoxProps {
+type TypeSearchSuggestionBoxProps = {
   keyword: string;
   debouncedKeyword: string;
-}
-interface ISearchResult {
-  sickCd: string;
-  sickNm: string;
-}
+};
 
 const MAX_RESULT = 7;
