@@ -14,7 +14,7 @@ const SearchBar = () => {
   const debouncedKeyword = useDebounce(keyword);
 
   return (
-    <div>
+    <>
       <SearchBarContainer isFocused={isFocused}>
         <SearchBarInput
           type="text"
@@ -25,27 +25,27 @@ const SearchBar = () => {
           onBlur={() => setIsFocused(false)}
           autoFocus
         />
-        {isFocused && (
-          <CancelButton
-            onClick={() => {
-              setKeyword('');
-            }}
-          >
-            <LuX size={16} />
-          </CancelButton>
-        )}
+        <CancelButton
+          onClick={() => {
+            setKeyword('');
+          }}
+        >
+          <LuX size={16} />
+        </CancelButton>
         <SearchButton>
           <LuSearch size={24} color={'#ffffff'} />
         </SearchButton>
       </SearchBarContainer>
-      {!isFocused && <SearchSuggestionBox keyword={keyword} debouncedKeyword={debouncedKeyword} />}
-    </div>
+      {isFocused && <SearchSuggestionBox keyword={keyword} debouncedKeyword={debouncedKeyword} />}
+    </>
   );
 };
 
 export default SearchBar;
 
 const SearchBarContainer = styled.div<{ isFocused: boolean }>`
+  box-sizing: border-box;
+  width: 500px;
   border-radius: 42px;
   border: 2px solid ${props => (props.isFocused ? '#007be9' : '#ffffff')};
   background-color: #ffffff;
@@ -53,7 +53,6 @@ const SearchBarContainer = styled.div<{ isFocused: boolean }>`
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  width: 500px;
   padding: 8px;
   box-shadow: 0px 2px 4px #1e202519;
   cursor: pointer;
