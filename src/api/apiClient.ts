@@ -15,6 +15,3 @@ apiClient.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-//request interceptor로 캐시된 데이터가 있으면 요청 안보내고 캐시된 데이터 리턴,
-//캐시된 데이터 없으면 요청 보낸 후 캐시스토리지에 해당 데이터 저장

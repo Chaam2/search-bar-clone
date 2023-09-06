@@ -1,7 +1,7 @@
 import { TypeSearchResult } from '../types/TypeSearchResult';
 
-export const setCacheData = async (query: string, data: TypeSearchResult[]) => {
-  const cacheStorage = await caches.open(query); // 스토리지 생성
+export const setCacheData = async (url: string, query: string, data: TypeSearchResult[]) => {
+  const cacheStorage = await caches.open(url); // 스토리지 생성
   const expireDate = new Date();
   expireDate.setMinutes(expireDate.getMinutes() + EXPIRE_MINUTE);
   const headerOption = {
@@ -13,8 +13,8 @@ export const setCacheData = async (query: string, data: TypeSearchResult[]) => {
   cacheStorage.put(query, cacheResponse);
 };
 
-export const getCacheData = async (query: string) => {
-  const cacheStorage = await caches.open(query);
+export const getCacheData = async (url: string, query: string) => {
+  const cacheStorage = await caches.open(url);
   const cachedResponse = await cacheStorage.match(query);
 
   if (!cachedResponse) return null; // 캐시된 응답 없는 경우 null 반환
