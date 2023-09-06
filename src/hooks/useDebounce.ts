@@ -4,7 +4,7 @@
  */
 import { useEffect, useState } from 'react';
 
-export const useDebounce = (keyword: string, delay = 1000) => {
+export const useDebounce = (keyword: string, delay = 500) => {
   const [debouncedKeyword, setDebouncedKeyword] = useState(keyword);
 
   useEffect(() => {
