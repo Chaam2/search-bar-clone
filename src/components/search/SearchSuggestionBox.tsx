@@ -2,29 +2,18 @@
  * SearchSuggestionBox UI rendering
  * state management
  */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { LuSearch } from 'react-icons/lu';
 import { styled } from 'styled-components';
-import { getSearchResult } from '../../api/search';
+
 import { TypeSearchResult } from '../../types/TypeSearchResult';
 
 const SearchSuggestionBox = ({
   keyword,
   setKeyword,
-  debouncedKeyword,
   isFocused,
+  searchResult,
 }: TypeSearchSuggestionBoxProps) => {
-  const [searchResult, setSearchResult] = useState<TypeSearchResult[]>([]);
-
-  useEffect(() => {
-    debouncedKeyword.trim() && getSearchResultData();
-  }, [debouncedKeyword]);
-
-  const getSearchResultData = async () => {
-    const searchResultData = await getSearchResult(debouncedKeyword);
-    setSearchResult(searchResultData);
-  };
-
   const changeKeyword = (newKeyword: string) => {
     setKeyword(newKeyword);
   };
@@ -76,8 +65,8 @@ type TypeSearchSuggestionBoxProps = {
   keyword: string;
   // eslint-disable-next-line
   setKeyword: (newKeyword: string) => void;
-  debouncedKeyword: string;
   isFocused: boolean;
+  searchResult: TypeSearchResult[];
 };
 
 const MAX_RESULT = 7;

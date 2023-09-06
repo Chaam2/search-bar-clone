@@ -2,19 +2,27 @@
  * SearchBar UI rendering
  * state management
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDebounce } from '../../hooks/useDebounce';
 import SearchSuggestionBox from './SearchSuggestionBox';
 import { LuSearch, LuX } from 'react-icons/lu';
 import { styled } from 'styled-components';
+import { getSearchResult } from '../../api/search';
+import { TypeSearchResult } from '../../types/TypeSearchResult';
 
-type TypeSearchBarProps = {
-  isFocused: boolean;
-};
 const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
   const [keyword, setKeyword] = useState('');
-
+  const [searchResult, setSearchResult] = useState<TypeSearchResult[]>([]);
   const debouncedKeyword = useDebounce(keyword);
+
+  useEffect(() => {
+    debouncedKeyword.trim() && getSearchResultData();
+  }, [debouncedKeyword]);
+
+  const getSearchResultData = async () => {
+    const searchResultData = await getSearchResult(debouncedKeyword);
+    setSearchResult(searchResultData);
+  };
 
   return (
     <>
@@ -43,14 +51,18 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
       <SearchSuggestionBox
         keyword={keyword}
         setKeyword={setKeyword}
-        debouncedKeyword={debouncedKeyword}
         isFocused={isFocused}
+        searchResult={searchResult}
       />
     </>
   );
 };
 
 export default SearchBar;
+
+type TypeSearchBarProps = {
+  isFocused: boolean;
+};
 
 const SearchBarContainer = styled.div<{ isFocused: boolean }>`
   box-sizing: border-box;
