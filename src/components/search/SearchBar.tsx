@@ -8,9 +8,12 @@ import SearchSuggestionBox from './SearchSuggestionBox';
 import { LuSearch, LuX } from 'react-icons/lu';
 import { styled } from 'styled-components';
 
-const SearchBar = () => {
+type TypeSearchBarProps = {
+  isFocused: boolean;
+};
+const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
   const [keyword, setKeyword] = useState('');
-  const [isFocused, setIsFocused] = useState(true);
+
   const debouncedKeyword = useDebounce(keyword);
 
   return (
@@ -21,22 +24,27 @@ const SearchBar = () => {
           placeholder="질환명을 입력해 주세요."
           value={keyword}
           onChange={e => setKeyword(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
           autoFocus
         />
+
         <CancelButton
+          isFocused={isFocused}
           onClick={() => {
             setKeyword('');
           }}
         >
           <LuX size={16} />
         </CancelButton>
+
         <SearchButton>
           <LuSearch size={24} color={'#ffffff'} />
         </SearchButton>
       </SearchBarContainer>
-      {isFocused && <SearchSuggestionBox keyword={keyword} debouncedKeyword={debouncedKeyword} />}
+      <SearchSuggestionBox
+        keyword={keyword}
+        debouncedKeyword={debouncedKeyword}
+        isFocused={isFocused}
+      />
     </>
   );
 };
@@ -84,6 +92,7 @@ const SearchButton = styled.button`
   border-radius: 100px;
 `;
 
-const CancelButton = styled.button`
+const CancelButton = styled.button<{ isFocused: boolean }>`
+  color: ${props => (props.isFocused ? 'black' : 'white')};
   ${ButtonStyle}
 `;

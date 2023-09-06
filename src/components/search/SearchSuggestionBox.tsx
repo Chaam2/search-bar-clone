@@ -8,8 +8,13 @@ import { styled } from 'styled-components';
 import { getSearchResult } from '../../api/search';
 import { TypeSearchResult } from '../../types/TypeSearchResult';
 
-const SearchSuggestionBox = ({ keyword, debouncedKeyword }: TypeSearchSuggestionBoxProps) => {
+const SearchSuggestionBox = ({
+  keyword,
+  debouncedKeyword,
+  isFocused,
+}: TypeSearchSuggestionBoxProps) => {
   const [searchResult, setSearchResult] = useState<TypeSearchResult[]>([]);
+
   useEffect(() => {
     debouncedKeyword.trim() && getSearchResultData();
   }, [debouncedKeyword]);
@@ -20,7 +25,7 @@ const SearchSuggestionBox = ({ keyword, debouncedKeyword }: TypeSearchSuggestion
   };
   if (!keyword) {
     return (
-      <RecentContainer>
+      <RecentContainer isFocused={isFocused}>
         <div>
           <h3>최근 검색어</h3>
         </div>
@@ -31,7 +36,7 @@ const SearchSuggestionBox = ({ keyword, debouncedKeyword }: TypeSearchSuggestion
     );
   }
   return (
-    <SearchSuggestionBoxContainer>
+    <SearchSuggestionBoxContainer isFocused={isFocused}>
       <ul>
         <li>
           <LuSearch size={20} color={'#aaaaaa'} />
@@ -64,6 +69,7 @@ export default SearchSuggestionBox;
 type TypeSearchSuggestionBoxProps = {
   keyword: string;
   debouncedKeyword: string;
+  isFocused: boolean;
 };
 
 const MAX_RESULT = 7;
@@ -95,7 +101,8 @@ gap:8px;
 }
 `;
 
-const SearchSuggestionBoxContainer = styled.div`
+const SearchSuggestionBoxContainer = styled.div<{ isFocused: boolean }>`
+  opacity: ${props => (props.isFocused ? '100' : '0')};
   ${SuggestionContainerStyle}
   padding:20px 0;
   h3 {
@@ -126,7 +133,8 @@ const SuggestionUl = styled.ul`
   }
 `;
 
-const RecentContainer = styled.div`
+const RecentContainer = styled.div<{ isFocused: boolean }>`
+  opacity: ${props => (props.isFocused ? '100' : '0')};
   ${SuggestionContainerStyle}
   div {
     padding: 20px;

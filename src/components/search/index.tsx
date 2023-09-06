@@ -1,19 +1,20 @@
 /** interface
  * searchPage UI rendering
  */
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-components';
 import SearchBar from './SearchBar';
 
 const Search = () => {
+  const [isFocused, setIsFocused] = useState(true);
   return (
-    <SearchContainer>
+    <SearchContainer onFocus={() => setIsFocused(true)} onBlur={() => setIsFocused(false)}>
       <h1>
         국내 모든 임상시험 검색하고
         <br />
         온라인으로 참여하기
       </h1>
-      <SearchBar />
+      <SearchBar isFocused={isFocused} />
     </SearchContainer>
   );
 };
