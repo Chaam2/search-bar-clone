@@ -7,10 +7,6 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
   const [keyword, setKeyword] = useState('');
   const searchResult = useSearchResult(keyword);
 
-  const changeKeyword = (newKeyword: string) => {
-    setKeyword(newKeyword);
-  };
-
   return (
     <>
       <S.SearchBarContainer isFocused={isFocused}>
@@ -52,7 +48,7 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
               <S.SuggestionUl>
                 {searchResult?.slice(0, MAX_RESULT).map(result => {
                   return (
-                    <li key={result.sickCd} onClick={() => changeKeyword(result.sickNm)}>
+                    <li key={result.sickCd} onClick={() => setKeyword(result.sickNm)}>
                       <LuSearch size={20} color={'#aaaaaa'} />
                       {result.sickNm}
                     </li>
