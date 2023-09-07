@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useDebounce } from '../../hooks/useDebounce';
+import React, { useState } from 'react';
 import { LuSearch, LuX } from 'react-icons/lu';
 import * as S from './Search.style';
-import { getSearchResult } from '../../api/search';
-import { TypeSearchResult } from '../../types/TypeSearchResult';
+import { useSearchResult } from '../../hooks/useSearchResult';
 
 const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
   const [keyword, setKeyword] = useState('');
-  const [searchResult, setSearchResult] = useState<TypeSearchResult[]>([]);
-  const debouncedKeyword = useDebounce(keyword);
-
-  useEffect(() => {
-    debouncedKeyword.trim() && getSearchResultData();
-  }, [debouncedKeyword]);
-
-  const getSearchResultData = async () => {
-    const searchResultData = await getSearchResult(debouncedKeyword);
-    setSearchResult(searchResultData);
-  };
+  const searchResult = useSearchResult(keyword);
 
   const changeKeyword = (newKeyword: string) => {
     setKeyword(newKeyword);
