@@ -118,6 +118,13 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
             })}
           </S.SuggestionUl>
           <h3>추천 검색어로 검색해보세요</h3>
+          <div>
+            <span>B형간염</span>
+            <span>비만</span>
+            <span>관절염</span>
+            <span>우울증</span>
+            <span>식도염</span>
+          </div>
         </S.RecentContainer>
       )}
     </>

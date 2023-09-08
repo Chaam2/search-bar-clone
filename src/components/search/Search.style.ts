@@ -138,4 +138,13 @@ export const RecentContainer = styled.div<{ isFocused: boolean }>`
     ${SectionTitleStyle}
     padding-top:20px;
   }
+  span {
+    display: inline-block;
+    color: #007be9;
+    background-color: #e0f0fd;
+    padding: 8px 16px;
+    border-radius: 48px;
+    margin-right: 8px;
+    cursor: pointer;
+  }
 `;
