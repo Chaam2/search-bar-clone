@@ -14,7 +14,7 @@ export const SearchContainer = styled.div`
 
 //SearchBar
 
-export const SearchBarContainer = styled.div<{ isFocused: boolean }>`
+export const SearchBarForm = styled.form<{ isFocused: boolean }>`
   box-sizing: border-box;
   width: 500px;
   border-radius: 42px;
@@ -76,6 +76,7 @@ font-size: 0.9rem;
 font-weight: 400;
 color: #666666;
 margin:0;
+padding:10px 20px;
 `;
 const KeywordStyle = `
 cursor: pointer;
@@ -99,7 +100,6 @@ export const SearchSuggestionBoxContainer = styled.div<{ isFocused: boolean }>`
   padding:20px 0;
   h3 {
     ${SectionTitleStyle}
-    padding:10px 20px;
   }
   span {
     padding: 14px 20px;
@@ -136,5 +136,6 @@ export const RecentContainer = styled.div<{ isFocused: boolean }>`
   }
   h3 {
     ${SectionTitleStyle}
+    padding-top:20px;
   }
 `;
