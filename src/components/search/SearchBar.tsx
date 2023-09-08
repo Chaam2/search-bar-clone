@@ -1,11 +1,45 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { LuSearch, LuX } from 'react-icons/lu';
 import * as S from './Search.style';
 import { useSearchResult } from '../../hooks/useSearchResult';
+import { TypeSearchResult } from '../../types/TypeSearchResult';
 
 const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
   const [keyword, setKeyword] = useState('');
   const searchResult = useSearchResult(keyword);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+  const [isListFocused, setIsListFocused] = useState(false);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    if (isListFocused && listRef.current) {
+      const liElements = listRef.current.querySelectorAll('li');
+      if (liElements[focusedIndex]) {
+        liElements[focusedIndex].focus();
+      }
+    }
+  }, [focusedIndex, isListFocused]);
+
+  const moveToList = (e: React.KeyboardEvent) => {
+    if (e.nativeEvent.isComposing) return;
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setIsListFocused(true);
+      setFocusedIndex(0);
+    }
+  };
+
+  const moveList = (e: React.KeyboardEvent, result: TypeSearchResult) => {
+    if (e.key === 'Enter') {
+      setKeyword(result.sickNm);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setFocusedIndex(prevIndex => (prevIndex === 0 ? searchResult.length - 1 : prevIndex - 1));
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setFocusedIndex(prevIndex => (prevIndex === searchResult.length - 1 ? 0 : prevIndex + 1));
+    }
+  };
 
   return (
     <>
@@ -15,6 +49,7 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
           placeholder="질환명을 입력해 주세요."
           value={keyword}
           onChange={e => setKeyword(e.target.value)}
+          onKeyDown={moveToList}
           autoFocus
         />
 
@@ -45,10 +80,20 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
             {searchResult.length === 0 ? (
               <span>추천 검색어가 없습니다.</span>
             ) : (
-              <S.SuggestionUl>
-                {searchResult?.slice(0, MAX_RESULT).map(result => {
+              <S.SuggestionUl
+                ref={listRef}
+                tabIndex={isListFocused ? 0 : -1}
+                onFocus={() => setIsListFocused(true)}
+                onBlur={() => setIsListFocused(false)}
+              >
+                {searchResult?.slice(0, MAX_RESULT).map((result, index) => {
                   return (
-                    <li key={result.sickCd} onClick={() => setKeyword(result.sickNm)}>
+                    <li
+                      key={result.sickCd}
+                      onClick={() => setKeyword(result.sickNm)}
+                      tabIndex={focusedIndex === index && isListFocused ? 0 : -1}
+                      onKeyDown={e => moveList(e, result)}
+                    >
                       <LuSearch size={20} color={'#aaaaaa'} />
                       {result.sickNm}
                     </li>
