@@ -1,46 +1,67 @@
-# Getting Started with Create React App
+# Search Bar Clone Project
+## 프로젝트 소개
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- 병명을 검색 시 입력된 단어를 바탕으로 추천검색어를 보여주는 로직을 구현했습니다.
 
-## Available Scripts
+## 개발 환경
 
-In the project directory, you can run:
+### Developement
 
-### `npm start`
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"/> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"/>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Styling
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<img src="https://img.shields.io/badge/styled component-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
 
-### `npm test`
+### Convention
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<img src="https://img.shields.io/badge/husky-brown?style=for-the-badge&logo=npm"> <img src="https://img.shields.io/badge/lint staged-white?style=for-the-badge&logo=npm"> <img src="https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint"> <img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
 
-### `npm run build`
+## 디렉토리 구조
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+📦src
+ ┣ 📂api
+ ┃ ┣ 📜apiClient.ts
+ ┃ ┗ 📜search.ts
+ ┣ 📂components
+ ┃ ┗ 📂Search
+ ┃ ┃ ┣ 📜Search.style.ts
+ ┃ ┃ ┣ 📜SearchBar.tsx
+ ┃ ┃ ┗ 📜index.tsx
+ ┣ 📂hooks
+ ┃ ┣ 📜useDebounce.ts
+ ┃ ┗ 📜useSearchResult.ts
+ ┣ 📂types
+ ┃ ┗ 📜TypeSearchResult.ts
+ ┣ 📂utils
+ ┃ ┗ 📜cacheStorage.ts
+ ┣ 📜App.tsx
+ ┣ 📜index.css
+ ┗ 📜index.tsx
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Assignment별 구현 방식
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Assignment 1. API호출을 통해 검색어 추천 기능 구현
 
-### `npm run eject`
+ - axios instance로 api호출 및 캐싱 관리
+ - 검색창 영역인 SearchBar 컴포넌트와 추천리스트 영역인 SearchSuggestionBox 컴포넌트로 분리 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Assignment 2. API 호출별로 로컬 캐싱 구현 (+expire time)
+ - 캐시스토리지에 저장 ( 로컬/세션 스토리지에 저장하기엔 5mb 용량제한때문에 관리가 어려울것이라 예상) 
+ - 쿼리별 최초 api 호출 시 받아온 데이터를 캐시스토리지에 저장하고, 이후 api요청 시 캐시된 데이터가 있는지 확인 후 캐시된 데이터가 있으면 해당 데이터 리턴 
+ - 캐시데이터 저장 시 헤더에 expireDate를 저장 → 캐시된 데이터를 불러올 때 expireDate를 체크하여 만료된 경우 새롭게 api를 호출하고, 해당 데이터로 기존 캐싱데이터를 업데이트함### Assignment 3. 입력 시 API 호출 횟수 최소화 전략
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Assignment 3. 입력 시 API 호출 횟수 최소화 전략
+- useDebounce hook을 통해 디바운싱 로직 처리 
+- debouncedKeyword state를 만들고 일정 시간동안 입력이 없으면 해당 키워드를 debouncedKeyword 상태로 업데이트 
+- debouncedKeyword를 trim()메서드로 공백 제거 후 api요청 
+### Assignment 4. 키보드만으로 추천 검색어 이동 기능 구현
+- focusedIndex state를 통해 현재 포커스된 li요소의 상태를 관리
+- `if(e.nativeEvent.isComposing) return;` 처리를 통해 한국어 입력시 마지막 글자 한번 더 입력되는 이슈 해결                                                                                                                                       
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Assignment 5. 기타 사항
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+ - 추천 검색어 리스트에서 리스트 항목 클릭 시 해당 항목으로 검색어 키워드 변경 
+ - 추천 검색어 최대 7개까지 노출   
