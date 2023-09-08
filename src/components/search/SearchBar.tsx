@@ -34,7 +34,7 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
       setKeyword(result.sickNm);
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      setFocusedIndex(prevIndex => (prevIndex === 0 ? searchResult.length - 1 : prevIndex - 1));
+      setFocusedIndex(prevIndex => (prevIndex === 0 ? -1 : prevIndex - 1));
     } else if (e.key === 'ArrowDown') {
       e.preventDefault();
       setFocusedIndex(prevIndex => (prevIndex === searchResult.length - 1 ? 0 : prevIndex + 1));

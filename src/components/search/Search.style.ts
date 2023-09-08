@@ -87,6 +87,10 @@ gap:8px;
 &:hover{
   background-color: #f4f4f4;
 }
+&:focus{
+  background-color: #f4f4f4;
+  outline:none;
+}
 `;
 
 export const SearchSuggestionBoxContainer = styled.div<{ isFocused: boolean }>`
