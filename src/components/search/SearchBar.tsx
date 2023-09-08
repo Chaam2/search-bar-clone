@@ -112,6 +112,7 @@ const SearchBar = ({ isFocused }: TypeSearchBarProps) => {
             {recentKeyword.map((keyword, index) => {
               return (
                 <li key={index + keyword} onClick={() => setKeyword(keyword)}>
+                  <LuSearch size={20} color={'#aaaaaa'} />
                   {keyword}
                 </li>
               );
