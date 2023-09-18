@@ -5,13 +5,15 @@ import { useDebounce } from './useDebounce';
 
 export const useSearchResult = (keyword: string) => {
   const [searchResult, setSearchResult] = useState<TypeSearchResult[]>([]);
-  const debouncedKeyword = useDebounce(keyword);
+  const debouncedKeyword = useDebounce(keyword.trim());
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getSearchResult(debouncedKeyword);
-        setSearchResult(response);
+        if (debouncedKeyword !== '') {
+          const response = await getSearchResult(debouncedKeyword);
+          setSearchResult(response);
+        }
       } catch (error) {
         console.error(error);
       }

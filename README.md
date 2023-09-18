@@ -3,9 +3,15 @@
 
 - 병명을 검색 시 입력된 단어를 바탕으로 추천검색어를 보여주는 로직을 구현했습니다.
 
+## 데모영상
+|**디바운싱 및 데이터 캐싱**|<img  src="https://github.com/Chaam2/search-bar-clone/assets/126763111/cf803afe-8d60-4875-a7f0-78db8c98722a"/> |
+| :---: | :---: |
+| **키보드로 포커스 이동**| <img  src="https://github.com/Chaam2/search-bar-clone/assets/126763111/a831f2ed-8664-4f7e-bf4b-007d748594c0"/> |
+
+
 ## 개발 환경
 
-### Developement
+### Development
 
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"/> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"/>
 

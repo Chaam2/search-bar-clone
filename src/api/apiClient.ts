@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:4000';
+const BASE_URL = 'https://search-bar-clone-server.vercel.app';
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
