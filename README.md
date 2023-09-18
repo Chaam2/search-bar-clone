@@ -1,7 +1,8 @@
 # Search Bar Clone Project
 ## 프로젝트 소개
 
-- 병명을 검색 시 입력된 단어를 바탕으로 추천검색어를 보여주는 로직을 구현했습니다.
+병명을 검색 시 입력된 단어를 바탕으로 추천검색어를 보여주는 로직을 구현했습니다.<br>
+[**🌐 배포 사이트 바로가기**](https://search-bar-clone.vercel.app/)
 
 ## 데모영상
 |**디바운싱 및 데이터 캐싱**|<img  src="https://github.com/Chaam2/search-bar-clone/assets/126763111/cf803afe-8d60-4875-a7f0-78db8c98722a"/> |
